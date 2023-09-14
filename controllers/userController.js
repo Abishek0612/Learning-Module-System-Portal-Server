@@ -5,6 +5,9 @@ const asyncHandler=require("express-async-handler");
 const User=require("../models/UserModel");
 
 
+const getData=async(req,res)=>{
+    res.send(`<h1>Hello.Server is running</h1>`);
+}
 
 //Define a function to register new user
 const registerUser=async(req,res)=>{
@@ -63,7 +66,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 
 //Define a function to get user data 
 const getMe=asyncHandler(async(req,res)=>{
-    const{_id,name,email}=await User.findById(req.user.id);
+    const{_id,name,email}=await User.findById(req.user._id);
     res.status(200).json({
         id:_id,
         name,
@@ -86,4 +89,5 @@ module.exports={
     registerUser,
     loginUser,
     getMe,
+    getData
 }

@@ -27,10 +27,14 @@ app.use("/api/users",require("./routes/userRoutes"));
 const {registerUser}=require("./controllers/userController");
 const {loginUser}=require("./controllers/userController");
 const {getMe}=require("./controllers/userController");
+// const {getData}=require("./controllers/userController");
+
 
 app.post("/api/users/register",registerUser);
 app.post("/api/users/login",loginUser);
 app.get("/api/users/me",getMe);
+// app.get("/",getData);
+
 
 app.listen(port,()=>{
     console.log(`Server Started on port ${port}`);
