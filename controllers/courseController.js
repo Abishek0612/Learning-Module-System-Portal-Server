@@ -8,7 +8,7 @@ const Quiz=require("../models/quizModel");
 
 //Define a function to get Course
 const getCourses=asyncHandler(async(req,res)=>{
-    //get all courses from the db
+    //get one courses from the db
     const courses=await Course.find();
     //send it as response
     res.status(200).json(courses);
@@ -105,6 +105,69 @@ const setCourse=asyncHandler(async(req,res)=>{
         }
     }
 
+});
+
+//Define a function to update exisiting course by ID
+const updateCourse=asyncHandler(async(req,res)=>{
+    //Find course by ID
+    const course=await Course.findById(req.params.id);
+
+    if(!course){
+        res.status(400);
+        throw new Error("Course not found");
+    }
+
+    //Update the course with data req.body
+    const updateCourse=await Course.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new:true}
+
+    );
+
+    //send the response 
+    res.status(200).json(updateCourse);
+});
+
+
+//Define a function 
+const deleteCourse=asyncHandler(async(req,res)=>{
+    //find the course by Id
+    const course=await Course.findById(req.params.id);
+
+    //check if course is available or not
+    if(!course){
+        res.status(400);
+        throw new Error("Course not found");
+    }
+
+    //remove the course 
+    await course.remove();
+
+    res.status(200).json({id:req.params.id});
+
+
+});
+
+//Define a function to get all course
+const getAllCourses=asyncHandler(async(req,res)=>{
+    //take out all course from db
+    const courses=await Course.find();
+    //send 
+    res.status(200).json(courses);
 })
+
+
+//export
+
+module.exports={
+    getCourses,
+    getAllCourses,
+    getCoursesById,
+    setCourse,
+    updateCourse,
+    deleteCourse,
+}
+
 
 
