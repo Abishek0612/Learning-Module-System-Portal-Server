@@ -6,7 +6,7 @@ mongoose.set("strictQuery",true);
 const connectDB=async()=>{
     try {
         //connect to MONGODB data ->mongourl
-        const conn=await mongoose.connect(process.env.MONGO_URI);
+        const conn=await mongoose.connect(process.env.MONGO_URL);
 
         //provide a message if connection is successful
         console.log(`Mongodb connection established: ${conn.connection.host}`)
